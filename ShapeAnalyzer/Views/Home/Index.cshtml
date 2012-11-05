@@ -1,0 +1,75 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Shape Analyzer";
+    var rx = new Random();
+}
+
+<h2>Shape Analyzer</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td rowspan="2">Image</td>
+            <td colspan="2">Actual</td>
+            <td colspan="2">Computed</td>
+            <td rowspan="2">Result</td>
+        </tr>
+        <tr>
+            <td>X</td>
+            <td>Y</td>
+            <td>X</td>
+            <td>Y</td>
+        </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < 10; i++)
+    {
+        var x = rx.Next(1, 50);
+        var y = rx.Next(1, 50);
+        <tr class="test-case">
+            <td>
+                <img class="circle-image" src="@Url.Action("RandomizedCircleImage", new { centerX = x, centerY = y })" />                
+            </td>
+            <td class="actual-x">@x</td>
+            <td class="actual-y">@y</td>
+            <td class="computed-x">?</td>
+            <td class="computed-y">?</td>
+            <td class="test-result">?</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<ul>
+</ul>
+
+<div id="container"></div>
+
+@section scripts
+{
+    <script src="~/Scripts/ShapeAnalyzer/shape-analyzer.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.test-case').each(function () {
+                var testCase = this;
+                var img = $(testCase).find('.circle-image')[0];
+                
+                analyzeShape('circle', img.src, function (metrics) {
+                    $(testCase).find('.computed-x').text(metrics.centerX);
+                    $(testCase).find('.computed-y').text(metrics.centerY);
+                    var actualX = parseFloat($(testCase).find('.actual-x').text());
+                    var actualY = parseFloat($(testCase).find('.actual-y').text());
+                    
+                    if ((Math.abs(actualX - metrics.centerX) > 1) ||
+                        (Math.abs(actualY - metrics.centerY) > 1))
+                    {
+                        $(testCase).find('.test-result').text("FAIL");
+                    } else {
+                        $(testCase).find('.test-result').text("PASS");
+                    }
+                });
+            });
+        });
+    </script>
+}
