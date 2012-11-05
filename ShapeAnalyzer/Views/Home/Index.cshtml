@@ -7,19 +7,20 @@
 
 <h2>Shape Analyzer</h2>
 
-<table>
+<table class="table table-bordered" style="width: 300px">
     <thead>
         <tr>
-            <td rowspan="2">Image</td>
-            <td colspan="2">Actual</td>
-            <td colspan="2">Computed</td>
-            <td rowspan="2">Result</td>
+            <th rowspan="2">Image</th>
+            <th colspan="2">Actual</th>
+            <th colspan="2">Computed</th>
+            <th rowspan="2">Result</th>
+            <th rowspan="2">Time</th>
         </tr>
         <tr>
-            <td>X</td>
-            <td>Y</td>
-            <td>X</td>
-            <td>Y</td>
+            <th>X</th>
+            <th>Y</th>
+            <th>X</th>
+            <th>Y</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +37,7 @@
             <td class="computed-x">?</td>
             <td class="computed-y">?</td>
             <td class="test-result">?</td>
+            <td class="compute-time">?</td>
         </tr>
     }
     </tbody>
@@ -55,7 +57,8 @@
                 var testCase = this;
                 var img = $(testCase).find('.circle-image')[0];
                 
-                analyzeShape('circle', img.src, function (metrics) {
+                analyzeShape('circle', img.src, function (metrics, computeTime) {
+                    $(testCase).find('.compute-time').text(computeTime + "ms");
                     $(testCase).find('.computed-x').text(metrics.centerX);
                     $(testCase).find('.computed-y').text(metrics.centerY);
                     var actualX = parseFloat($(testCase).find('.actual-x').text());
@@ -64,8 +67,10 @@
                     if ((Math.abs(actualX - metrics.centerX) > 1) ||
                         (Math.abs(actualY - metrics.centerY) > 1))
                     {
+                        $(testCase).addClass('error');
                         $(testCase).find('.test-result').text("FAIL");
                     } else {
+                        $(testCase).addClass('success');
                         $(testCase).find('.test-result').text("PASS");
                     }
                 });
