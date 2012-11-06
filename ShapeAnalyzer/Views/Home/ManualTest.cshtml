@@ -1,0 +1,44 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Manual Test";
+    var imageUrl = (string)@ViewBag.ImageUrl;
+}
+
+<h2>Manual Test</h2>
+
+<form class="form-inline" method="GET">
+    <input type="text" id="imageUrl" name="imageUrl" placeholder="Image URL" class="input-xxlarge" value="@imageUrl" />
+    <button type="submit" class="btn btn-primary">Analyze</button>
+</form>
+
+@if (!String.IsNullOrEmpty(imageUrl))
+{
+    <img src="@imageUrl" class="img-polaroid" />
+}
+
+<dl class="dl-horizontal" id="metrics" style="display: none;">
+    <dt>Center X</dt>
+    <dd id="center-x"></dd>
+    <dt>Center Y</dt>
+    <dd id="center-y"></dd>
+</dl>
+
+@section scripts
+{
+    <script src="~/Scripts/ShapeAnalyzer/shape-analyzer.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            var imageUrl = $('#imageUrl').val();
+            
+            if (imageUrl) {
+                analyzeShape('circle', imageUrl, function(metrics, computeTime) {
+                    $('#center-x').text(metrics.centerX);
+                    $('#center-y').text(metrics.centerY);
+                    $('#metrics').slideDown();
+                });
+            }
+        });
+    </script>
+}

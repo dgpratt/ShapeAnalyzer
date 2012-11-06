@@ -7,46 +7,7 @@
 
 <h2>Shape Analyzer</h2>
 
-<h4>Random Circles</h4>
-
-@Html.Partial("_CircleTable", Model.RandomCircles)
-
-<h4>Pathalogical Circles</h4>
-
-@Html.Partial("_CircleTable", Model.PathalogicalCircles)
-
-<h4>Broken Circles</h4>
-
-@Html.Partial("_CircleTable", Model.BrokenCircles)
-
-@section scripts
-{
-    <script src="~/Scripts/ShapeAnalyzer/shape-analyzer.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.test-case').each(function () {
-                var testCase = this;
-                var img = $(testCase).find('.circle-image')[0];
-                
-                analyzeShape('circle', img.src, function (metrics, computeTime) {
-                    $(testCase).find('.compute-time').text(computeTime + "ms");
-                    $(testCase).find('.computed-x').text(metrics.centerX);
-                    $(testCase).find('.computed-y').text(metrics.centerY);
-                    var actualX = parseFloat($(testCase).find('.actual-x').text());
-                    var actualY = parseFloat($(testCase).find('.actual-y').text());
-                    
-                    if ((Math.abs(actualX - metrics.centerX) <= 1) &&
-                        (Math.abs(actualY - metrics.centerY) <= 1))
-                    {
-                        $(testCase).addClass('success');
-                        $(testCase).find('.test-result').text("PASS");
-                    } else {
-                        $(testCase).addClass('error');
-                        $(testCase).find('.test-result').text("FAIL");
-                    }
-                });
-            });
-        });
-    </script>
-}
+<ul class="nav nav-pills nav-stacked">
+    <li><a href="@Url.Action("TestCases")">Test Cases</a></li>
+    <li><a href="@Url.Action("ManualTest")">Manual Test</a></li>
+</ul>

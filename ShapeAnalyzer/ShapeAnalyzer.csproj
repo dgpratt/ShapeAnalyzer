@@ -282,6 +282,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\ShapeAnalyzer\shape-analyzer.coffee" />
     <Content Include="Views\Home\_CircleTable.cshtml" />
+    <Content Include="Views\Home\TestCases.cshtml" />
+    <Content Include="Views\Home\ManualTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
