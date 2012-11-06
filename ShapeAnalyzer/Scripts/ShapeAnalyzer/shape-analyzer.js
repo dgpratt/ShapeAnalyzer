@@ -34,13 +34,12 @@
   };
 
   computeCircleMetrics = function(imageData) {
-    var centerX, centerY, fce, ffl, fft, fre;
+    var cce, centerX, centerY, fft, fre;
     fft = getFirstFromTop(imageData);
     fre = getRowExtent(imageData, fft.row, fft.col);
-    centerX = fft.col + ((fre - fft.col) / 2);
-    ffl = getFirstFromLeft(imageData);
-    fce = getColExtent(imageData, ffl.col, ffl.row);
-    centerY = ffl.row + ((fce - ffl.row) / 2);
+    centerX = Math.ceil(fft.col + ((fre - fft.col) / 2));
+    cce = getColExtent(imageData, centerX, fft.row);
+    centerY = Math.ceil(fft.row + ((cce - fft.row) / 2));
     return {
       centerX: centerX,
       centerY: centerY

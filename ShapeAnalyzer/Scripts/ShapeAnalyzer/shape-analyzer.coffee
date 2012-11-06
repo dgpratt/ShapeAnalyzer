@@ -33,14 +33,13 @@ computeCircleMetrics = (imageData) ->
 	# and compute its center.
 	fft = getFirstFromTop imageData
 	fre = getRowExtent imageData, fft.row, fft.col
-	centerX = fft.col + ((fre - fft.col) / 2)
+	centerX = Math.ceil (fft.col + ((fre - fft.col) / 2))
 
 	# Determine the Y-coordinate of the circle center:
-	# Get the bounds of the first column of pixels in the circle
-	# and compute its center.
-	ffl = getFirstFromLeft imageData
-	fce = getColExtent imageData, ffl.col, ffl.row
-	centerY = ffl.row + ((fce - ffl.row) / 2)
+	# Determine the lower bound of the center-most column.
+	# The circle center is halfway down.
+	cce = getColExtent imageData, centerX, fft.row
+	centerY = Math.ceil (fft.row + ((cce - fft.row) / 2))
 
 	return { centerX, centerY }
 
