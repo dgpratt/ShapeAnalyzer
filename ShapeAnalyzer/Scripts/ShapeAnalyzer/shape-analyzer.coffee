@@ -49,14 +49,14 @@ computeCircleMetrics = (imageData) ->
 getFirstFromTop = (imageData) ->
 	# rows
 	for row in [0..imageData.height - 1]
-		#cols
+		# cols
 		for col in [0..imageData.width - 1]
 			return { row, col } if pixelIsFilled imageData, col, row
 
 # Returns the coordinates of the first filled (black) pixel in the image
 # by scanning by columns, then rows.
 getFirstFromLeft = (imageData) ->
-	#cols
+	# cols
 	for col in [0..imageData.width - 1]
 		# rows
 		for row in [0..imageData.height - 1]
@@ -65,9 +65,12 @@ getFirstFromLeft = (imageData) ->
 # Assuming firstCol is the index of the first filled pixel in row, returns
 # the column index of the last filled pixel in row.
 getRowExtent = (imageData, row, firstCol) ->
-	#cols
+	# cols
 	for col in [firstCol..imageData.width - 1]
 		return col - 1 if not (pixelIsFilled imageData, col, row)
+	# Getting to this point means we've searched to the end of the
+	# row and found all filled pixels. Return the last.
+	imageData.width - 1
 
 # Assuming firstRow is the index of the first filled pixel in col, returns
 # the row index of the last filled pixel in col.
@@ -75,6 +78,9 @@ getColExtent = (imageData, col, firstRow) ->
 	# rows
 	for row in [firstRow..imageData.height - 1]
 		return row - 1 if not (pixelIsFilled imageData, col, row)
+	# Getting to this point means we've searched to the end of the
+	# column and found all filled pixels. Return the last.
+	imageData.height - 1
 
 # Returns true if the pixel at coordinates (x,y) is black.
 pixelIsFilled = (imageData, x, y) ->

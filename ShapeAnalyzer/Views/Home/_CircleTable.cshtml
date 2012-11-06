@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ShapeAnalyzer.Models.ShapeAnalyzerTestCircle>
+
+<table class="table table-bordered" style="width: 300px">
+    <thead>
+        <tr>
+            <th rowspan="2">Image</th>
+            <th colspan="2">Actual</th>
+            <th colspan="2">Computed</th>
+            <th rowspan="2">Result</th>
+            <th rowspan="2">Time</th>
+        </tr>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>X</th>
+            <th>Y</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var testCircle in Model)
+        {
+            <tr class="test-case">
+                <td>
+                    <img class="circle-image" src="@testCircle.Url" />                
+                </td>
+                <td class="actual-x">@testCircle.CenterX</td>
+                <td class="actual-y">@testCircle.CenterY</td>
+                <td class="computed-x">?</td>
+                <td class="computed-y">?</td>
+                <td class="test-result">?</td>
+                <td class="compute-time">?</td>
+            </tr>  
+        }
+    </tbody>
+</table>

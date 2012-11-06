@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model ShapeAnalyzer.Models.ShapeAnalyzerTests
 
 @{
     ViewBag.Title = "Shape Analyzer";
@@ -7,45 +7,17 @@
 
 <h2>Shape Analyzer</h2>
 
-<table class="table table-bordered" style="width: 300px">
-    <thead>
-        <tr>
-            <th rowspan="2">Image</th>
-            <th colspan="2">Actual</th>
-            <th colspan="2">Computed</th>
-            <th rowspan="2">Result</th>
-            <th rowspan="2">Time</th>
-        </tr>
-        <tr>
-            <th>X</th>
-            <th>Y</th>
-            <th>X</th>
-            <th>Y</th>
-        </tr>
-    </thead>
-    <tbody>
-    @for (int i = 0; i < 10; i++)
-    {
-        var x = rx.Next(1, 50);
-        var y = rx.Next(1, 50);
-        <tr class="test-case">
-            <td>
-                <img class="circle-image" src="@Url.Action("RandomizedCircleImage", new { centerX = x, centerY = y })" />                
-            </td>
-            <td class="actual-x">@x</td>
-            <td class="actual-y">@y</td>
-            <td class="computed-x">?</td>
-            <td class="computed-y">?</td>
-            <td class="test-result">?</td>
-            <td class="compute-time">?</td>
-        </tr>
-    }
-    </tbody>
-</table>
-<ul>
-</ul>
+<h4>Random Circles</h4>
 
-<div id="container"></div>
+@Html.Partial("_CircleTable", Model.RandomCircles)
+
+<h4>Pathalogical Circles</h4>
+
+@Html.Partial("_CircleTable", Model.PathalogicalCircles)
+
+<h4>Broken Circles</h4>
+
+@Html.Partial("_CircleTable", Model.BrokenCircles)
 
 @section scripts
 {
@@ -64,14 +36,14 @@
                     var actualX = parseFloat($(testCase).find('.actual-x').text());
                     var actualY = parseFloat($(testCase).find('.actual-y').text());
                     
-                    if ((Math.abs(actualX - metrics.centerX) > 1) ||
-                        (Math.abs(actualY - metrics.centerY) > 1))
+                    if ((Math.abs(actualX - metrics.centerX) <= 1) &&
+                        (Math.abs(actualY - metrics.centerY) <= 1))
                     {
-                        $(testCase).addClass('error');
-                        $(testCase).find('.test-result').text("FAIL");
-                    } else {
                         $(testCase).addClass('success');
                         $(testCase).find('.test-result').text("PASS");
+                    } else {
+                        $(testCase).addClass('error');
+                        $(testCase).find('.test-result').text("FAIL");
                     }
                 });
             });

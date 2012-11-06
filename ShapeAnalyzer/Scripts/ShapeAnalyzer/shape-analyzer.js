@@ -82,6 +82,7 @@
         return col - 1;
       }
     }
+    return imageData.width - 1;
   };
 
   getColExtent = function(imageData, col, firstRow) {
@@ -91,6 +92,7 @@
         return row - 1;
       }
     }
+    return imageData.height - 1;
   };
 
   pixelIsFilled = function(imageData, x, y) {

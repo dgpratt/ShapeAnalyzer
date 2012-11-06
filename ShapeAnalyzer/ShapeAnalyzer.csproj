@@ -129,10 +129,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ShapeAnalyzerTestCircle.cs" />
+    <Compile Include="Models\ShapeAnalyzerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\280px-PNG_transparency_demonstration_1.png" />
+    <Content Include="Content\images\bad-circle-1.png" />
+    <Content Include="Content\images\bad-circle-2.png" />
+    <Content Include="Content\images\bad-circle-3.png" />
+    <Content Include="Content\images\bad-circle-4.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\test-circle.png" />
@@ -275,10 +281,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\ShapeAnalyzer\shape-analyzer.coffee" />
+    <Content Include="Views\Home\_CircleTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
